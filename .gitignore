@@ -2,3 +2,5 @@ nano.save
 *.pyc
 *.log
 *.pid
+*.swp
+*.kate-swp
