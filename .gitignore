@@ -4,3 +4,5 @@ nano.save
 *.pid
 *.swp
 *.kate-swp
+.idea
+.sensor-central

@@ -1,10 +1,10 @@
-import paho.mqtt.publish as mqtt
+from paho.mqtt.publish import single
 import time
 count = 0
 while True:
-    mqtt.single("/simple/counter",count)
+    single("/simple/counter", count)
     print count
-    count = count + 1
+    count += 1
     time.sleep(1)
 
 
