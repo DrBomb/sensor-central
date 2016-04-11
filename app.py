@@ -36,11 +36,10 @@ with app.app_context():
     db.create_all()
 mqtt.views = views
 mqtt.mqtt.connect("localhost")
-#if getattr(app, 'background_thread', None) is None:
-#    worker = Thread(target=mqtt.mqtt.loop_forever)
-#    worker.daemon = True
-#    worker.start()
-#    app.background_thread = worker
+worker = Thread(target=mqtt.mqtt.loop_forever)
+worker.daemon = True
+worker.start()
+app.background_thread = worker
 @app.route('/')
 def index2():
     return render_template('index.html',title = config['app']['title'])

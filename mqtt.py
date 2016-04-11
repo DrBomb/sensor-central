@@ -20,7 +20,3 @@ def on_message(client, userdata, msg):
 mqtt = Client()
 mqtt.on_connect = on_connect
 mqtt.on_message = on_message
-thread = None
-if thread is None:
-    mqtt.loop_start()
-    thread = "Started"
