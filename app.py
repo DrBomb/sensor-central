@@ -12,38 +12,40 @@ def create_app():
     db.init_app(app)
     return app
 
+app = create_app()
+views = [dht({
+    "name":"DHT1",
+    "title":"DHT11",
+    "mqtt_feeds":[
+        "/dht1/temperature",
+        "/dht1/humidity"
+        ],
+    "app":app
+    }),
+    Simple({
+    "name":"Simple",
+    "title":"Simple",
+    "mqtt_feeds":[
+        "/simple/counter"
+        ],
+    "app":app
+    })]
+for x in views:
+    app.register_blueprint(x.view, url_prefix='/'+x.name)
+with app.app_context():
+    db.create_all()
+mqtt.views = views
+mqtt.mqtt.connect("localhost")
+#if getattr(app, 'background_thread', None) is None:
+#    worker = Thread(target=mqtt.mqtt.loop_forever)
+#    worker.daemon = True
+#    worker.start()
+#    app.background_thread = worker
+@app.route('/')
+def index2():
+    return render_template('index.html',title = config['app']['title'])
+@app.route('/index')
+def index():
+    return redirect(url_for('/'))
 if __name__ == "__main__":
-    app = create_app()
-    views = [dht({
-        "name":"DHT1",
-        "title":"DHT11",
-        "mqtt_feeds":[
-            "/dht1/temperature",
-            "/dht1/humidity"
-            ],
-        "app":app
-        }),
-        Simple({
-        "name":"Simple",
-        "title":"Simple",
-        "mqtt_feeds":[
-            "/simple/counter"
-            ],
-        "app":app
-        })]
-    for x in views:
-      app.register_blueprint(x.view, url_prefix='/'+x.name)
-    with app.app_context():
-        db.create_all()
-    mqtt.views = views
-    mqtt.mqtt.connect("localhost")
-    worker = Thread(target=mqtt.mqtt.loop_forever)
-    worker.daemon = True
-    worker.start()
-    @app.route('/')
-    def index2():
-        return render_template('index.html',title = config['app']['title'])
-    @app.route('/index')
-    def index():
-        return redirect(url_for('/'))
-    app.run(debug=True)
+    app.run(debug=False)
