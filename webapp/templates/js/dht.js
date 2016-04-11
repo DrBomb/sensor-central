@@ -1,2 +1,5 @@
-var graph_size = {{params['graph_size']}}
-var data_point = "/data/" + {{params['name']}} + "/" + graph_size; 
+var plot_points = {{params['plot_points']}};
+var update_delay = {{params['update_delay']}};
+var updateInterval;
+var ctx;
+var chart;
