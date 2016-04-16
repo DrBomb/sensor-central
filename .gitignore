@@ -7,3 +7,4 @@ nano.save
 .idea
 .sensor-central
 lock
+.sqlite

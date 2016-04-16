@@ -2,12 +2,12 @@ from flask import Blueprint, render_template
 from datetime import datetime
 from json import dumps
 from new import classobj
-from database.database import db
+from ..database.database import db
 
 class Simple:
     def __init__(self,params):
         self.view = Blueprint(params['name'],__name__,template_folder='templates')
-        self.app = params['app']
+        #self.app = params['app']
         self.title = params['title']
         self.mqtt_feeds = params['mqtt_feeds']
         self.name = params['name']

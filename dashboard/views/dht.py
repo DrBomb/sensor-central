@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from datetime import datetime
 from json import dumps
 from new import classobj
-from database.database import db
+from ..database.database import db
 
 
 class dht:
