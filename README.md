@@ -24,11 +24,6 @@ Each view class must have:
 ##Running
 `pip install -r requirements.txt` to install dependencies
 
-`python app.py` to use flask's internal webserver
+`python webapp.py` to use flask's internal webserver
 
-`gunicorn app:app` to use gunicorn's WSGI server
-
-Right now only one worker process should be used because a MQTT client is run from a external thread every time app.py is run. A workaround is needed to ensure only one MQTT thread is created.
-
-
-
+`gunicorn webapp:app.app` to use gunicorn's WSGI server

@@ -10,12 +10,12 @@ class App(object):
         self.views = views
         self.mqtt_host = mqtt_host
         self.app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
-        self.app.config['SQLALCHEMY_ECHO'] = True
+        self.app.config['SQLALCHEMY_ECHO'] = False
         db.init_app(self.app)
         self.register_views()
         @self.app.route('/')
         def index():
-            return render_template('index.html', title="Sensor Central")
+            return render_template('index.html', title="Sensor Central",views=self.views)
         @self.app.route('/index')
         def index2():
             return redirect(url_for('/'))
