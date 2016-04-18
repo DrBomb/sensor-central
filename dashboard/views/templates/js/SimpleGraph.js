@@ -10,9 +10,10 @@ var chartOptions = {
 	scaleShowHorizontalLines: true,
 	scaleShowLabels: true,
 	scaleType: "date",
-	scaleLabel: "\n<%=value%>°C",
+	scaleLabel: "{{params.scale_label.decode('utf8')}}",
 	useUtc:false,
-	animation:false
+	animation:false,
+	scaleDateTimeFormat: "dd/mm/yy, hh:mm"
 };
 
 $(document).ready(function(){
@@ -27,7 +28,7 @@ function startUp(){
 function update(){
 	$.ajax({
 		type:'GET',
-		url:'temperature/' + plot_points,
+		url:'reading/' + plot_points,
 		dataType:'json',
 		success: function(resp){
 			data = makeData(resp);
@@ -49,7 +50,7 @@ function makeData(resp){
 		points.push(point);
 	}
 	var set = {
-		strokeColor:"#A31515",
+		strokeColor:"{{params.plot_colour}}",
 		data:points
 	};
 	data.push(set);
